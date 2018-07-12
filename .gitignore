@@ -1,0 +1,3 @@
+src/dockers/*
+src/www/*
+.vagrant
