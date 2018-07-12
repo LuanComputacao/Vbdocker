@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
   config.vm.box = "debian/stretch64"
   config.vm.hostname = "debian-docker-host"
   
-  config.vm.network 'private_network', ip: '192.168.100.100'
+  config.vm.network "private_network", ip: "192.168.100.100"
   
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.synced_folder "src/www/", "/vagrant/www"
@@ -21,7 +21,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, path: ".vagrantProvider/bootstrap.sh"
 
   config.vm.provider "virtualbox" do |v|
-    v.name = 'debian-docker-host'
+    v.name = "debian-docker-host"
     v.memory = 1024
     v.cpus = 2
   end
