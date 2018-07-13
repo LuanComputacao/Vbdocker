@@ -1,31 +1,31 @@
 # Docker on Vagrant
 
 ## What?
-A (Vagrant)[https://www.vagrantup.com/] machine with (Debian)[https://www.debian.org] that have the Docker installed and configured.
+A [Vagrant](https://www.vagrantup.com/) machine with [Debian](https://www.debian.org) that have the Docker installed and configured.
 
 ## Why?
 * **VirtualBox no longer works after the docker environment instalation.**
   The known issue
-    (README FIRST for Docker Toolbox and Docker Machine users: Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain)[https://docs.docker.com/docker-for-windows/install/]
+    [README FIRST for Docker Toolbox and Docker Machine users: Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain](https://docs.docker.com/docker-for-windows/install/)
 
 * To enjoy your Windows environment and **all the power of the Linux** environment and containners managed by the Tux
 
 
 ## How?
-Using the Docker on an Vagrant VirtualBox that have a (Debian 9.4)[https://www.debian.org/News/2018/20180310]
+Using the Docker on an Vagrant VirtualBox that have a [Debian 9.4](https://www.debian.org/News/2018/20180310)
 
 ## What is necessary:
 ### Requirements
 * more than 3GB RAM
-* (VirtualBox isntalled)[https://www.virtualbox.org/wiki/Downloads]
-* (Vagrant isntalled)[https://www.vagrantup.com/docs/installation/]
-* (Vagrant VirtualBox Pluggin installed)[https://github.com/dotless-de/vagrant-vbguest]
+* [VirtualBox isntalled](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant isntalled](https://www.vagrantup.com/docs/installation/)
+* [Vagrant VirtualBox Pluggin installed](https://github.com/dotless-de/vagrant-vbguest)
 * SSH key available
 
 ## Running the environment
 * Clone this repository
 * Enter into the folder/diretory or this repository
-* Open a command line tool (cmd, GitBash, Console2, PowerShell)
+* Open a command line tool __(cmd, GitBash, Console2, PowerShell)__
 * Run `vagrant up`
 
 ## Using the Vagrant Debian VirtualBox
@@ -45,6 +45,7 @@ docker run -ti --name some-nginx-server -p 8080:80 -d nginx
 So you can connecto with this server using a browser with the IP and port 
 
 **Windows explorer**: http://192.168.100.100:1280/
+
 **Microsoft Edge**: Not work! Kkkkkk...
 
 
