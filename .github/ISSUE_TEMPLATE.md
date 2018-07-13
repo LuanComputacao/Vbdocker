@@ -1,7 +1,7 @@
-Before create the issues:
+Before creating the issues:
 [ ] You are running a compatible Vagrant, VirtualBox
 [ ] You are running a stable Debian 9.4 Docker in the Linux
-[ ] You realy know what is happening
+[ ] You really know what is happening
 
 
 **What?**
