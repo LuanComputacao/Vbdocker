@@ -6,7 +6,7 @@ A [Vagrant](https://www.vagrantup.com/) machine with [Debian](https://www.debian
 ## Why?
 * **VirtualBox no longer works after the docker environment instalation.**
   The known issue
-    [README FIRST for Docker Toolbox and Docker Machine users: Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain](https://docs.docker.com/docker-for-windows/install/)
+      [README FIRST for Docker Toolbox and Docker Machine users: Docker for Windows requires Microsoft Hyper-V to run. The Docker for Windows installer enables Hyper-V for you, if needed, and restart your machine. After Hyper-V is enabled, VirtualBox no longer works, but any VirtualBox VM images remain](https://docs.docker.com/docker-for-windows/install/)
 
 * To enjoy your Windows environment and **all the power of the Linux** environment and containners managed by the Tux
 
