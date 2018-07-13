@@ -14,7 +14,7 @@ A [Vagrant](https://www.vagrantup.com/) machine with [Debian](https://www.debian
 ## How?
 Using the Docker on an Vagrant VirtualBox that have a [Debian 9.4](https://www.debian.org/News/2018/20180310)
 
-## What is necessary:
+## What is necessary?
 ### Requirements
 * more than 3GB RAM
 * [VirtualBox isntalled](https://www.virtualbox.org/wiki/Downloads)
@@ -26,11 +26,11 @@ Using the Docker on an Vagrant VirtualBox that have a [Debian 9.4](https://www.d
 * Clone this repository
 * Enter into the folder/diretory or this repository
 * Open a command line tool __(cmd, GitBash, Console2, PowerShell)__
-* Run `vagrant up`
+* Run `$ vagrant up`
 
 ## Using the Vagrant Debian VirtualBox
-* In the root of this project run `vagrant ssh`
-* You can create your Containers
+* In the root of this project run `$ vagrant ssh`
+* You can create your Containers into your vagrant
 
 ## Web Connection
 ### VirtualBox IP
@@ -47,6 +47,9 @@ So you can connecto with this server using a browser with the IP and port
 **Windows explorer**: http://192.168.100.100:1280/
 
 **Microsoft Edge**: Not work! Kkkkkk...
+
+## Synced(shared) folder
+The src folder will be available into the vagrant as `/vagrant/` directory
 
 
 ```
