@@ -1,5 +1,5 @@
-class Vagrantvbdocker
-  def Vagrantvbdocker.configure(config, settings)
+class Vbdocker
+  def Vbdocker.configure(config, settings)
     # Set The VM Provider
     ENV['VAGRANT_DEFAULT_PROVIDER'] = settings["provider"] ||= "virtualbox"
 
@@ -7,6 +7,7 @@ class Vagrantvbdocker
     scriptDir = File.dirname(__FILE__)
 
     # Prevent TTY Errors
+    config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
     # Allow SSH Agent Forward from The Box
     config.ssh.forward_agent = true
@@ -14,10 +15,10 @@ class Vagrantvbdocker
     # Configure The Box
     config.vm.box = settings["box"] ||= "debian/stretch64"
     config.vm.box_version = settings["version"] ||= ">= 0.4.0"
-    config.vm.hostname = settings["hostname"] ||= "win-vbox-docker"
+    config.vm.hostname = settings["hostname"] ||= "vbdocker"
 
     # Configure A Private Network IP
-    config.vm.network :private_network, ip: settings["ip"] ||= "192.168.100.100"
+    config.vm.network :private_network, ip: settings["ip"] ||= "192.168.10.10"
 
     # Configure Additional Networks
     if settings.has_key?("networks")
@@ -28,21 +29,21 @@ class Vagrantvbdocker
 
     # Configure A Few VirtualBox Settings
     config.vm.provider "virtualbox" do |vb|
-      vb.name = settings["name"] ||= "win-vbox-docker-1"
+      vb.name = settings["name"] ||= "vbdocker-1"
       vb.customize ["modifyvm", :id, "--memory", settings["memory"] ||= "2048"]
       vb.customize ["modifyvm", :id, "--cpus", settings["cpus"] ||= "1"]
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-      vb.customize ["modifyvm", :id, "--ostype", "Debian_64"]
+      vb.customize ["modifyvm", :id, "--ostype", "Ubuntu_64"]
     end
 
     # Configure A Few VMware Settings
     ["vmware_fusion", "vmware_workstation"].each do |vmware|
       config.vm.provider vmware do |v|
-        v.vmx["displayName"] = settings["name"] ||= "win-vbox-docker-1"
+        v.vmx["displayName"] = settings["name"] ||= "vbdocker-1"
         v.vmx["memsize"] = settings["memory"] ||= 2048
         v.vmx["numvcpus"] = settings["cpus"] ||= 1
-        v.vmx["guestOS"] = "debian-64"
+        v.vmx["guestOS"] = "ubuntu-64"
       end
     end
 
@@ -145,76 +146,11 @@ class Vagrantvbdocker
       end
     end
 
-    # Install All The Configured Nginx Sites
-    config.vm.provision "shell" do |s|
-        s.path = scriptDir + "/clear-nginx.sh"
-    end
-
-
-    if settings.include? 'sites'
-      settings["sites"].each do |site|
-        type = site["type"] ||= "laravel"
-
-        if (site.has_key?("hhvm") && site["hhvm"])
-          type = "hhvm"
-        end
-
-        if (type == "symfony")
-          type = "symfony2"
-        end
-
-        config.vm.provision "shell" do |s|
-          s.name = "Creating Site: " + site["map"]
-          s.path = scriptDir + "/serve-#{type}.sh"
-          s.args = [site["map"], site["to"], site["port"] ||= "80", site["ssl"] ||= "443"]
-        end
-
-        # Configure The Cron Schedule
-        if (site.has_key?("schedule"))
-          config.vm.provision "shell" do |s|
-            s.name = "Creating Schedule"
-
-            if (site["schedule"])
-              s.path = scriptDir + "/cron-schedule.sh"
-              s.args = [site["map"].tr('^A-Za-z0-9', ''), site["to"]]
-            else
-              s.inline = "rm -f /etc/cron.d/$1"
-              s.args = [site["map"].tr('^A-Za-z0-9', '')]
-            end
-          end
-        end
-
-      end
-    end
-
-    config.vm.provision "shell" do |s|
-      s.name = "Restarting Nginx"
-      s.inline = "sudo service nginx restart; sudo service php7.0-fpm restart"
-    end
-
     # Install MariaDB If Necessary
     if settings.has_key?("mariadb") && settings["mariadb"]
       config.vm.provision "shell" do |s|
         s.path = scriptDir + "/install-maria.sh"
       end
-    end
-
-
-    # Configure All Of The Configured Databases
-    if settings.has_key?("databases")
-        settings["databases"].each do |db|
-          config.vm.provision "shell" do |s|
-            s.name = "Creating MySQL Database"
-            s.path = scriptDir + "/create-mysql.sh"
-            s.args = [db]
-          end
-
-          config.vm.provision "shell" do |s|
-            s.name = "Creating Postgres Database"
-            s.path = scriptDir + "/create-postgres.sh"
-            s.args = [db]
-          end
-        end
     end
 
     # Configure All Of The Server Environment Variables
@@ -223,40 +159,20 @@ class Vagrantvbdocker
         s.path = scriptDir + "/clear-variables.sh"
     end
 
+    # Configure All Of The Server Environment Variables
+    config.vm.provision "shell" do |s|
+        s.name = "Install Docker"
+        s.path = scriptDir + "/install-docker.sh"
+    end
+
     if settings.has_key?("variables")
       settings["variables"].each do |var|
         config.vm.provision "shell" do |s|
-          s.inline = "echo \"\nenv[$1] = '$2'\" >> /etc/php/7.0/fpm/php-fpm.conf"
-          s.args = [var["key"], var["value"]]
-        end
-
-        config.vm.provision "shell" do |s|
-            s.inline = "echo \"\n# Set Vagrantvbdocker Environment Variable\nexport $1=$2\" >> /home/vagrant/.profile"
+            s.inline = "echo \"\n# Set Vbdocker Environment Variable\nexport $1=$2\" >> /home/vagrant/.profile"
             s.args = [var["key"], var["value"]]
         end
       end
-
-      config.vm.provision "shell" do |s|
-        s.inline = "service php7.0-fpm restart"
-      end
     end
 
-    # Update Composer On Every Provision
-    config.vm.provision "shell" do |s|
-      s.inline = "/usr/local/bin/composer self-update"
-    end
-
-    # Configure Blackfire.io
-    if settings.has_key?("blackfire")
-      config.vm.provision "shell" do |s|
-        s.path = scriptDir + "/blackfire.sh"
-        s.args = [
-          settings["blackfire"][0]["id"],
-          settings["blackfire"][0]["token"],
-          settings["blackfire"][0]["client-id"],
-          settings["blackfire"][0]["client-token"]
-        ]
-      end
-    end
   end
 end

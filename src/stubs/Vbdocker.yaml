@@ -13,18 +13,8 @@ folders:
     - map: ~/workspace
       to: /home/vagrant/workspace
 
-sites:
-    - map: homestead.app
-      to: /home/vagrant/Code/Laravel/public
-
 databases:
     - homestead
-
-# blackfire:
-#     - id: foo
-#       token: bar
-#       client-id: foo
-#       client-token: bar
 
 # ports:
 #     - send: 50000

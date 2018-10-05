@@ -1,12 +1,12 @@
 @echo off
 
-set winvbdockerRoot=%HOMEDRIVE%%HOMEPATH%\.winvbdocker
+set vbdockerRoot=%HOMEDRIVE%%HOMEPATH%\.vbdocker
 
-mkdir "%winvbdockerRoot%"
+mkdir "%vbdockerRoot%"
 
-copy /-y src\stubs\Winvbdocker.yaml "%winvbdockerRoot%\Winvbdocker.yaml"
-copy /-y src\stubs\after.sh "%winvbdockerRoot%\after.sh"
-copy /-y src\stubs\aliases "%winvbdockerRoot%\aliases"
+copy /-y src\stubs\Vbdocker.yaml "%vbdockerRoot%\Vbdocker.yaml"
+copy /-y src\stubs\after.sh "%vbdockerRoot%\after.sh"
+copy /-y src\stubs\aliases "%vbdockerRoot%\aliases"
 
-set winvbdockerRoot=
-echo Winvbdocker initialized!
+set vbdockerRoot=
+echo Vbdocker initialized!

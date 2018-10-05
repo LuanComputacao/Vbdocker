@@ -32,6 +32,20 @@ Using the Docker on an Vagrant VirtualBox that have a [Debian 9.4](https://www.d
 * Open a command line tool __(cmd, GitBash, Console2, PowerShell)__
 * Run `$ vagrant up`
 
+## If this not works
+If you have this error
+```
+Bringing machine 'default' up with 'virtualbox' provider...Failed to locate the powershell executable on the available PATH. Pleaseensure powershell is installed and available on the local PATH, thenrun the command again
+```
+You will need to suply the `PATH` variable in yout `Environment Variables` editing the `System variables`
+```
+C:\Windows\System32\WindowsPowerShell\v1.0
+```
+and if you have the Git installed
+```
+C:\Program Files\Git\cmd
+```
+
 ## Using the Vagrant Debian VirtualBox
 * In the root of this project run `$ vagrant ssh`
 * You can create your Containers into your vagrant
@@ -41,6 +55,13 @@ Using the Docker on an Vagrant VirtualBox that have a [Debian 9.4](https://www.d
 The VirtualBox IP is configured into the Vagrantfile. Currently is the **192.168.100.100**
 
 ### Containners connection
+Keep in mind that you have 3 levels of network
+```
+-> Guest(your windows)
+  `-> Vbdocker machine
+      `-> Docker instance
+```
+
 You can forward the Docker ports to the VirtualBox as
 ```
 docker run -ti --name some-nginx-server -p 8080:80 -d nginx

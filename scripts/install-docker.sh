@@ -2,13 +2,6 @@
 
 apt-get update
 
-#install and configure nginx
-apt-get install -y nginx
-if ! [ -L /var/www ]; then
-	rm -rf /var/www
-	ln -fs /vagrant/www /var/www
-fi
-
 #install wget
 apt-get install -y wget
 

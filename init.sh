@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-winvbdockerRoot=~/.winvbdocker
+vbdockerRoot=~/.vbdocker
 
-mkdir -p "$winvbdockerRoot"
+mkdir -p "$vbdockerRoot"
 
-cp -i ./src/stubs/Winvbdocker.yaml "$winvbdockerRoot/Winvbdocker.yaml"
-cp -i ./src/stubs/after.sh "$winvbdockerRoot/after.sh"
-cp -i ./src/stubs/aliases "$winvbdockerRoot/aliases"
+cp -i ./src/stubs/Vbdocker.yaml "$vbdockerRoot/Vbdocker.yaml"
+cp -i ./src/stubs/after.sh "$vbdockerRoot/after.sh"
+cp -i ./src/stubs/aliases "$vbdockerRoot/aliases"
 
-echo "Winvbdocker initialized!"
+echo "Vbdocker initialized!"
