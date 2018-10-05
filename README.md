@@ -69,12 +69,12 @@ docker run -ti --name some-nginx-server -p 8080:80 -d nginx
 
 So you can connecto with this server using a browser with the IP and port 
 
-**Windows explorer**: http://192.168.100.100:1280/
+**Windows explorer**: http://192.168.10.25:8080/
 
 **Microsoft Edge**: Not work! Kkkkkk...
 
 ## Synced(shared) folder
-The src folder will be available into the vagrant as `/vagrant/` directory
+The src folder will be available into the vagrant as `~/workspace/` directory
 
 
 ```
