@@ -51,7 +51,7 @@ C:\Program Files\Git\cmd
 
 ## Using the Vagrant Debian VirtualBox
 * In the root of this project run `$ vagrant ssh`
-* You can create your Containers into your vagrant
+* Test the docker using the command `docker run hello-world`
 
 ## Web Connection
 ### VirtualBox IP
