@@ -25,6 +25,9 @@ Using the Docker on an Vagrant VirtualBox that have a [Debian 9.4](https://www.d
 * [Vagrant isntalled](https://www.vagrantup.com/docs/installation/)
 * [Vagrant VirtualBox Pluggin installed](https://github.com/dotless-de/vagrant-vbguest)
 * [SSH key available](https://help.github.com/en/enterprise/2.15/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+* a directory in
+  * Linux: `~/workspace`
+  * Windows: `%HOMEDRIVE%%HOMEPATH%\workspace`
 
 ## Running the environment
 * Open a command line tool __(cmd, GitBash, Console2, PowerShell)__
@@ -34,6 +37,46 @@ Using the Docker on an Vagrant VirtualBox that have a [Debian 9.4](https://www.d
   * init.bat for windows
   * init.sh for linux
 * Run `$ vagrant up`
+
+## Using the Vagrant Debian VirtualBox
+* In the root of this project run `$ vagrant ssh`
+* Test the docker using the command `docker run hello-world`
+
+
+## Web Connection
+### Containners connection
+Keep in mind that you have 3 levels of network
+```
+-> Guest(your windows)
+  `-> Vbdocker machine
+      `-> Docker instance
+```
+
+### VirtualBox IP
+The VirtualBox IP is ìn the file `$HOME/.vbdocker/Vbdocker.yaml`
+
+
+### Ports
+You can forward the Docker ports to the VirtualBox as
+```
+docker run -ti --name some-nginx-server -p 8080:80 -d nginx
+```
+
+So you can connect with this server using a browser with the IP and port 
+
+**Firefox**: http://192.168.10.25:8080/
+
+**Microsoft things that is not really a browser**: Not works? Kkkkkk...Try to search the necessary configuration for this browser
+
+## Initial configuration
+
+* ip: "192.168.10.25"
+* memory: 512
+* cpus: 1
+* Shared folders:
+  * host: `~/workspace/`
+  * vbdocker: `/home/vagrant/workspace/`
+
 
 ## If this not works
 If you have this error
@@ -48,36 +91,6 @@ and if you have the Git installed
 ```
 C:\Program Files\Git\cmd
 ```
-
-## Using the Vagrant Debian VirtualBox
-* In the root of this project run `$ vagrant ssh`
-* Test the docker using the command `docker run hello-world`
-
-## Web Connection
-### VirtualBox IP
-The VirtualBox IP is configured into the Vagrantfile. Currently is the **192.168.100.100**
-
-### Containners connection
-Keep in mind that you have 3 levels of network
-```
--> Guest(your windows)
-  `-> Vbdocker machine
-      `-> Docker instance
-```
-
-You can forward the Docker ports to the VirtualBox as
-```
-docker run -ti --name some-nginx-server -p 8080:80 -d nginx
-```
-
-So you can connecto with this server using a browser with the IP and port 
-
-**Windows explorer**: http://192.168.10.25:8080/
-
-**Microsoft Edge**: Not work! Kkkkkk...
-
-## Synced(shared) folder
-The src folder will be available into the vagrant as `~/workspace/` directory
 
 
 ```
