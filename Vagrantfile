@@ -21,7 +21,7 @@ Vagrant.require_version '>=1.8.4'
 Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.vm.box = "debian/stretch64"
   config.vm.hostname = "vbdocker"
-  
+
   if File.exists? aliasesPath then
         config.vm.provision "file", source: aliasesPath, destination: "~/.bash_aliases"
     end

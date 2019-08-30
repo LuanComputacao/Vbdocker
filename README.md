@@ -24,12 +24,15 @@ Using the Docker on an Vagrant VirtualBox that have a [Debian 9.4](https://www.d
 * [VirtualBox isntalled](https://www.virtualbox.org/wiki/Downloads)
 * [Vagrant isntalled](https://www.vagrantup.com/docs/installation/)
 * [Vagrant VirtualBox Pluggin installed](https://github.com/dotless-de/vagrant-vbguest)
-* SSH key available
+* [SSH key available](https://help.github.com/en/enterprise/2.15/user/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
 ## Running the environment
-* Clone this repository
-* Enter into the folder/diretory or this repository
 * Open a command line tool __(cmd, GitBash, Console2, PowerShell)__
+* Clone this repository
+* Enter into the folder/diretory
+* Run the initializer
+  * init.bat for windows
+  * init.sh for linux
 * Run `$ vagrant up`
 
 ## If this not works
